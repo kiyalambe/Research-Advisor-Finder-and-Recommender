@@ -3,12 +3,12 @@
 USE ResearchAdvisorDBS;
 CREATE TABLE Department (
     DepartmentID VARCHAR(10) PRIMARY KEY,
-    DepartmentName VARCHAR(100) NOT NULL UNIQUE
+    DepartmentName VARCHAR(25) NOT NULL UNIQUE
 );
 
 CREATE TABLE Student (
     StudentID VARCHAR(10) PRIMARY KEY,
-    FullName VARCHAR(100) NOT NULL,
+    FullName VARCHAR(30) NOT NULL,
     Email VARCHAR(100) UNIQUE NOT NULL,
     StudyYear INT CHECK (StudyYear BETWEEN 1 AND 5),
     DepartmentID VARCHAR(10),
@@ -19,7 +19,7 @@ CREATE TABLE Student (
 
 CREATE TABLE Advisor (
     AdvisorID VARCHAR(10) PRIMARY KEY,
-    FullName VARCHAR(100) NOT NULL,
+    FullName VARCHAR(50) NOT NULL,
     Email VARCHAR(100) UNIQUE NOT NULL,
     Specialization VARCHAR(100),
     MaxLoad INT CHECK (MaxLoad > 0),
@@ -30,7 +30,7 @@ CREATE TABLE Advisor (
 
 CREATE TABLE ResearchTopic (
     TopicID VARCHAR(10) PRIMARY KEY,
-    Title VARCHAR(200) NOT NULL,
+    Title VARCHAR(100) NOT NULL,
     StudentID VARCHAR(10) UNIQUE,
     FOREIGN KEY (StudentID)
         REFERENCES Student(StudentID)
@@ -163,4 +163,5 @@ SELECT
 FROM FinalAssignment f
 JOIN Student s ON f.StudentID = s.StudentID
 JOIN Advisor a ON f.AdvisorID = a.AdvisorID
+
 JOIN Department d ON f.DepartmentID = d.DepartmentID;
