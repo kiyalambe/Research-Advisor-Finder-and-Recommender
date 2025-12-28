@@ -2,46 +2,46 @@
  CREATE DATABASE ResearchAdvisorDBS;
 USE ResearchAdvisorDBS;
 CREATE TABLE Department (
-    DepartmentID VARCHAR(10) PRIMARY KEY,
-    DepartmentName VARCHAR(25) NOT NULL UNIQUE
+    DepartmentID VARCHAR(25) PRIMARY KEY,
+    DepartmentName VARCHAR(30) NOT NULL UNIQUE
 );
 
 CREATE TABLE Student (
-    StudentID VARCHAR(10) PRIMARY KEY,
+    StudentID VARCHAR(25) PRIMARY KEY,
     FullName VARCHAR(30) NOT NULL,
-    Email VARCHAR(100) UNIQUE NOT NULL,
+    Email VARCHAR(30) UNIQUE NOT NULL,
     StudyYear INT CHECK (StudyYear BETWEEN 1 AND 5),
-    DepartmentID VARCHAR(10),
+    DepartmentID VARCHAR(25),
     FOREIGN KEY (DepartmentID)
         REFERENCES Department(DepartmentID)
 );
 
 
 CREATE TABLE Advisor (
-    AdvisorID VARCHAR(10) PRIMARY KEY,
-    FullName VARCHAR(50) NOT NULL,
-    Email VARCHAR(100) UNIQUE NOT NULL,
-    Specialization VARCHAR(100),
+    AdvisorID VARCHAR(25) PRIMARY KEY,
+    FullName VARCHAR(30) NOT NULL,
+    Email VARCHAR(30) UNIQUE NOT NULL,
+    Specialization VARCHAR(30),
     MaxLoad INT CHECK (MaxLoad > 0),
-    DepartmentID VARCHAR(10),
+    DepartmentID VARCHAR(25),
     FOREIGN KEY (DepartmentID)
         REFERENCES Department(DepartmentID)
 );
 
 CREATE TABLE ResearchTopic (
-    TopicID VARCHAR(10) PRIMARY KEY,
-    Title VARCHAR(100) NOT NULL,
-    StudentID VARCHAR(10) UNIQUE,
+    TopicID VARCHAR(25) PRIMARY KEY,
+    Title VARCHAR(30) NOT NULL,
+    StudentID VARCHAR(25) UNIQUE,
     FOREIGN KEY (StudentID)
         REFERENCES Student(StudentID)
 );
 
 CREATE TABLE AdvisorRequest (
-    RequestID VARCHAR(10) PRIMARY KEY,
+    RequestID VARCHAR(25) PRIMARY KEY,
     RequestDate DATE,
-    Status VARCHAR(20),
-    StudentID VARCHAR(10),
-    AdvisorID VARCHAR(10),
+    Status VARCHAR(30),
+    StudentID VARCHAR(25),
+    AdvisorID VARCHAR(25),
     FOREIGN KEY (StudentID)
         REFERENCES Student(StudentID),
     FOREIGN KEY (AdvisorID)
@@ -49,20 +49,20 @@ CREATE TABLE AdvisorRequest (
 );
 
 CREATE TABLE AdvisorDecision (
-    DecisionID VARCHAR(10) PRIMARY KEY,
-    Decision VARCHAR(10),
+    DecisionID VARCHAR(25) PRIMARY KEY,
+    Decision VARCHAR(30),
     DecisionDate DATE,
-    RequestID VARCHAR(10) UNIQUE,
+    RequestID VARCHAR(25) UNIQUE,
     FOREIGN KEY (RequestID)
         REFERENCES AdvisorRequest(RequestID)
 );
 
 
 CREATE TABLE FinalAssignment (
-    AssignmentID VARCHAR(10) PRIMARY KEY,
-    StudentID VARCHAR(10) UNIQUE,
-    AdvisorID VARCHAR(10),
-    DepartmentID VARCHAR(10),
+    AssignmentID VARCHAR(25) PRIMARY KEY,
+    StudentID VARCHAR(25) UNIQUE,
+    AdvisorID VARCHAR(25),
+    DepartmentID VARCHAR(25),
     AssignmentDate DATE,
     FOREIGN KEY (StudentID)
         REFERENCES Student(StudentID),
@@ -165,3 +165,4 @@ JOIN Student s ON f.StudentID = s.StudentID
 JOIN Advisor a ON f.AdvisorID = a.AdvisorID
 
 JOIN Department d ON f.DepartmentID = d.DepartmentID;
+
